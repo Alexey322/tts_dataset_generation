@@ -91,6 +91,10 @@ def merge_words_by_time(words_timestamps, min_chunk_duration, max_chunk_duration
         # the remaining chunk is so small that we cannot get the required min duration
         if end_word_ind == -1:
             break
+        # impossible to reach the minimum duration and the next word end > max_chunk_duration
+        elif current_timestamp_ind == end_word_ind:
+            current_timestamp_ind += 1
+            continue
 
         if worst_word_score >= min_chunk_word_score:
             if time_between_words >= min_time_between_words_for_separation:
