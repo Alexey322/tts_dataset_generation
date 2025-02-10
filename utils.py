@@ -141,12 +141,6 @@ def split_video_by_audio_chunks(asr_model, video_path, save_dir, min_chunk_durat
             words_timestamps.append({'word': word['word'], 'start': word['start'], 'end': word['end'],
                                      'score': word['score']})
 
-    for ind, word in enumerate(words_timestamps):
-        if ind != len(words_timestamps) - 1:
-            print(word['word'], word['start'], word['end'], words_timestamps[ind+1]['start'] - word['end'])
-        else:
-            print(word['word'], word['start'], word['end'])
-
     merged_words_list = merge_words_by_time(words_timestamps, min_chunk_duration, max_chunk_duration,
                                             min_time_between_words_for_separation, min_chunk_word_score)
 
