@@ -118,7 +118,8 @@ def merge_words_by_time(words_timestamps, min_chunk_duration, max_chunk_duration
 
         current_timestamp_ind = chunk_start_ind
 
-        chunk_info = get_chunk_best_end(words_timestamps, current_timestamp_ind, min_chunk_duration, max_chunk_duration)
+        chunk_info = get_chunk_best_end(words_timestamps, current_timestamp_ind, min_chunk_duration,
+                                        max_chunk_duration)
         time_between_words, end_word_ind, worst_word_score, worst_word_score_ind = chunk_info
 
         # the remaining chunk is so small that we cannot get the required min duration
@@ -181,6 +182,12 @@ def split_video_by_audio_chunks(asr_model, video_path, save_dir, min_chunk_durat
                                      'score': word['score']})
 
     extra_time_for_chunk_borders = min(min_time_between_words_for_separation / 2, extra_time_for_chunk_borders)
+
+    # Since we add extra time for each chunk, the final chunk length will be in the range
+    # [min_chunk_duration + 2 * extra_time_for_chunk_borders; max_chunk_duration + 2 * extra_time_for_chunk_borders].
+    # So we have to subtract the extra time to get the correct range.
+    min_chunk_duration -= 2 * extra_time_for_chunk_borders
+    max_chunk_duration -= 2 * extra_time_for_chunk_borders
 
     merged_words_list = merge_words_by_time(words_timestamps, min_chunk_duration, max_chunk_duration,
                                             min_time_between_words_for_separation, min_chunk_word_score,
