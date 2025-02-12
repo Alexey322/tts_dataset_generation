@@ -6,7 +6,7 @@ if __name__ == "__main__":
     asr_model = ASR()
 
     split_video_by_audio_chunks(asr_model=asr_model,
-                                video_path=r"C:\Users\Alexey\Desktop/example.wav",
+                                video_path=r"C:\Users\Alexey\Desktop/198855308-5bdbb260-526c-4d51-8bef-685c9a450a74.mp4",
                                 save_dir='chunks',
                                 min_chunk_duration=3,
                                 max_chunk_duration=5,
